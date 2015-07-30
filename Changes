@@ -1,6 +1,8 @@
 Revision history for {{ $dist->name }}
 
 {{ $NEXT }}
+
+0.003     2015-07-31 03:42:01+09:00 Asia/Seoul
     - Remove need-less file
 
 0.002     2015-07-31 02:51:01+09:00 Asia/Seoul
