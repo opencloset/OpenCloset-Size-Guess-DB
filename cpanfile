@@ -1,5 +1,6 @@
 requires "DateTime" => "0";
 requires "Moo" => "0";
+requires "OpenCloset::Schema" => "0.012";
 requires "OpenCloset::Size::Guess" => "0.002";
 requires "OpenCloset::Size::Guess::Role::Base" => "0";
 requires "Statistics::Basic" => "0";
