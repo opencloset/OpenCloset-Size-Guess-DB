@@ -1,6 +1,7 @@
 Revision history for {{ $dist->name }}
 
 {{ $NEXT }}
+    - Return height, weight, gender and count
 
 0.003     2015-07-31 03:42:01+09:00 Asia/Seoul
     - Remove need-less file
