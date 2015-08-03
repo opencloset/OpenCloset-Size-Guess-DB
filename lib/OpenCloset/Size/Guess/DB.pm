@@ -34,7 +34,9 @@ has time_zone => (
 sub guess {
     my $self = shift;
 
-    my ( $height, $weight ) = ( $self->height, $self->weight );
+    my $height = $self->height;
+    my $weight = $self->weight;
+    my $gender = $self->gender;
 
     my $dt_base = try {
         DateTime->new(
@@ -68,7 +70,7 @@ sub guess {
                     ],
                 },
             ],
-            'booking.gender' => $self->gender,
+            'booking.gender' => $gender,
             'height' => { -between => [ $height - $self->range, $height + $self->range ] },
             'weight' => { -between => [ $weight - $self->range, $weight + $self->range ] },
         },
@@ -90,7 +92,9 @@ sub guess {
         topbelly => [],
         waist    => [],
     );
+    my $count = 0;
     while ( my $order = $order_rs->next ) {
+        ++$count;
         for (
             qw/
             arm
@@ -111,7 +115,11 @@ sub guess {
             push @{ $item{$_} }, $order->$_;
         }
     }
-    my %average = (
+    my %ret = (
+        height   => $height,
+        weight   => $weight,
+        gender   => $gender,
+        count    => $count,
         arm      => 0,
         belly    => 0,
         bust     => 0,
@@ -123,18 +131,18 @@ sub guess {
         topbelly => 0,
         waist    => 0,
     );
-    $average{arm}      = Statistics::Basic::mean( $item{arm} )->query;
-    $average{belly}    = Statistics::Basic::mean( $item{belly} )->query;
-    $average{bust}     = Statistics::Basic::mean( $item{bust} )->query;
-    $average{foot}     = Statistics::Basic::mean( $item{foot} )->query;
-    $average{hip}      = Statistics::Basic::mean( $item{hip} )->query;
-    $average{knee}     = Statistics::Basic::mean( $item{knee} )->query;
-    $average{leg}      = Statistics::Basic::mean( $item{leg} )->query;
-    $average{thigh}    = Statistics::Basic::mean( $item{thigh} )->query;
-    $average{topbelly} = Statistics::Basic::mean( $item{topbelly} )->query;
-    $average{waist}    = Statistics::Basic::mean( $item{waist} )->query;
+    $ret{arm}      = Statistics::Basic::mean( $item{arm} )->query;
+    $ret{belly}    = Statistics::Basic::mean( $item{belly} )->query;
+    $ret{bust}     = Statistics::Basic::mean( $item{bust} )->query;
+    $ret{foot}     = Statistics::Basic::mean( $item{foot} )->query;
+    $ret{hip}      = Statistics::Basic::mean( $item{hip} )->query;
+    $ret{knee}     = Statistics::Basic::mean( $item{knee} )->query;
+    $ret{leg}      = Statistics::Basic::mean( $item{leg} )->query;
+    $ret{thigh}    = Statistics::Basic::mean( $item{thigh} )->query;
+    $ret{topbelly} = Statistics::Basic::mean( $item{topbelly} )->query;
+    $ret{waist}    = Statistics::Basic::mean( $item{waist} )->query;
 
-    return \%average;
+    return \%ret;
 }
 
 1;
