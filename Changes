@@ -1,6 +1,7 @@
 Revision history for {{ $dist->name }}
 
 {{ $NEXT }}
+    - Return every count for each measurement factor
 
 0.004     2015-08-03 13:15:51+09:00 Asia/Seoul
     - Return height, weight, gender and count

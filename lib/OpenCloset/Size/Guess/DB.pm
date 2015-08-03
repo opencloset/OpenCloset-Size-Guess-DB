@@ -92,9 +92,21 @@ sub guess {
         topbelly => [],
         waist    => [],
     );
-    my $count = 0;
+    my %count = (
+        total    => 0,
+        arm      => 0,
+        belly    => 0,
+        bust     => 0,
+        foot     => 0,
+        hip      => 0,
+        knee     => 0,
+        leg      => 0,
+        thigh    => 0,
+        topbelly => 0,
+        waist    => 0,
+    );
     while ( my $order = $order_rs->next ) {
-        ++$count;
+        ++$count{total};
         for (
             qw/
             arm
@@ -112,6 +124,7 @@ sub guess {
         {
             next unless $order->$_; # remove undef & 0
 
+            ++$count{$_};
             push @{ $item{$_} }, $order->$_;
         }
     }
@@ -119,7 +132,7 @@ sub guess {
         height   => $height,
         weight   => $weight,
         gender   => $gender,
-        count    => $count,
+        count    => \%count,
         arm      => 0,
         belly    => 0,
         bust     => 0,
