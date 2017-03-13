@@ -31,6 +31,10 @@ has time_zone => (
     required => 1,
 );
 
+has waist    => ( is => 'rw', default => 0 );
+has bust     => ( is => 'rw', default => 0 );
+has topbelly => ( is => 'rw', default => 0 );
+
 sub guess {
     my $self = shift;
 
@@ -48,37 +52,38 @@ sub guess {
     };
     return unless $dt_base;
 
-    my $dtf      = $self->schema->storage->datetime_parser;
-    my $order_rs = $self->schema->resultset('Order')->search(
-        #
-        # cond
-        #
-        {
-            -or => [
-                {
-                    # 대여일이 2015-05-29 이전
-                    -and => [
-                        { 'booking.date' => { '<' => $dtf->format_datetime($dt_base) }, },
-                        \[ "DATE_FORMAT(booking.date, '%H') < ?" => 19 ],
-                    ],
-                },
-                {
-                    # 대여일이 2015-05-29 이후
-                    -and => [
-                        { 'booking.date' => { '>=' => $dtf->format_datetime($dt_base) }, },
-                        \[ "DATE_FORMAT(booking.date, '%H') < ?" => 22 ],
-                    ],
-                },
-            ],
-            'booking.gender' => $gender,
-            'height' => { -between => [ $height - $self->range, $height + $self->range ] },
-            'weight' => { -between => [ $weight - $self->range, $weight + $self->range ] },
-        },
-        #
-        # attr
-        #
-        { join => [qw/ booking /] },
-    );
+    my $dtf  = $self->schema->storage->datetime_parser;
+    my $cond = {
+        -or => [
+            {
+                # 대여일이 2015-05-29 이전
+                -and => [
+                    { 'booking.date' => { '<' => $dtf->format_datetime($dt_base) }, },
+                    \[ "DATE_FORMAT(booking.date, '%H') < ?" => 19 ],
+                ],
+            },
+            {
+                # 대여일이 2015-05-29 이후
+                -and => [
+                    { 'booking.date' => { '>=' => $dtf->format_datetime($dt_base) }, },
+                    \[ "DATE_FORMAT(booking.date, '%H') < ?" => 22 ],
+                ],
+            },
+        ],
+        'booking.gender' => $gender,
+        'height' => { -between => [ $height - $self->range, $height + $self->range ] },
+        'weight' => { -between => [ $weight - $self->range, $weight + $self->range ] },
+    };
+
+    for my $part (qw/bust waist topbelly/) {
+        my $size = $self->$part;
+        next unless $size;
+
+        $cond->{$part} = { -between => [ $size - $self->range, $size + $self->range ] };
+    }
+
+    my $order_rs =
+        $self->schema->resultset('Order')->search( $cond, { join => [qw/ booking /] } );
 
     my %item = (
         arm      => [],
@@ -226,6 +231,12 @@ This module is a L<OpenCloset::Size::Guess> driver for the database.
 =attr schema
 
 =attr time_zone
+
+=attr waist
+
+=attr bust
+
+=attr topbelly
 
 
 =method guess
