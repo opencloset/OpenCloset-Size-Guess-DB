@@ -1,6 +1,7 @@
 Revision history for {{ $dist->name }}
 
 {{ $NEXT }}
+    - 허리둘레, 가슴둘레, 윗배둘레를 검색 조건에 포함
 
 0.005     2015-08-03 13:26:00+09:00 Asia/Seoul
     - Return every count for each measurement factor
