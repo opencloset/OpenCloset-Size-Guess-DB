@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use 5.008;
+use 5.010;
 
 use ExtUtils::MakeMaker 6.17;
 
@@ -12,9 +12,8 @@ my %WriteMakefileArgs = (
     "ExtUtils::MakeMaker" => "6.17"
   },
   "DISTNAME" => "OpenCloset-Size-Guess-DB",
-  "EXE_FILES" => [],
   "LICENSE" => "perl",
-  "MIN_PERL_VERSION" => "5.008",
+  "MIN_PERL_VERSION" => "5.010",
   "NAME" => "OpenCloset::Size::Guess::DB",
   "PREREQ_PM" => {
     "DateTime" => 0,
@@ -30,6 +29,7 @@ my %WriteMakefileArgs = (
   "TEST_REQUIRES" => {
     "ExtUtils::MakeMaker" => 0,
     "File::Spec" => 0,
+    "OpenCloset::Schema" => "0.012",
     "Test::More" => 0,
     "strict" => 0,
     "warnings" => 0
@@ -43,7 +43,7 @@ my %WriteMakefileArgs = (
 
 my %FallbackPrereqs = (
   "DateTime" => 0,
-  "ExtUtils::MakeMaker" => "6.17",
+  "ExtUtils::MakeMaker" => 0,
   "File::Spec" => 0,
   "Moo" => 0,
   "OpenCloset::Schema" => "0.012",
