@@ -34,6 +34,7 @@ has time_zone => (
 has waist    => ( is => 'rw', default => 0 );
 has bust     => ( is => 'rw', default => 0 );
 has topbelly => ( is => 'rw', default => 0 );
+has hip      => ( is => 'rw', default => 0 );
 
 sub guess {
     my $self = shift;
@@ -75,7 +76,7 @@ sub guess {
         'weight' => { -between => [ $weight - $self->range, $weight + $self->range ] },
     };
 
-    for my $part (qw/bust waist topbelly/) {
+    for my $part (qw/bust waist topbelly hip/) {
         my $size = $self->$part;
         next unless $size;
 
@@ -238,5 +239,6 @@ This module is a L<OpenCloset::Size::Guess> driver for the database.
 
 =attr topbelly
 
+=attr hip
 
 =method guess
