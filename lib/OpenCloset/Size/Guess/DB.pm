@@ -239,5 +239,6 @@ This module is a L<OpenCloset::Size::Guess> driver for the database.
 
 =attr topbelly
 
+=attr hip
 
 =method guess
