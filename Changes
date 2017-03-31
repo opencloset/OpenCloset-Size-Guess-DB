@@ -1,6 +1,8 @@
 Revision history for {{ $dist->name }}
 
 {{ $NEXT }}
+
+0.007     2017-03-31 13:16:34+09:00 Asia/Seoul
     - 엉덩이둘레를 지원
 
 0.006     2017-03-15 08:03:37+09:00 Asia/Seoul
