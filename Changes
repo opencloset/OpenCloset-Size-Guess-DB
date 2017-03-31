@@ -1,6 +1,7 @@
 Revision history for {{ $dist->name }}
 
 {{ $NEXT }}
+    - 엉덩이둘레를 지원
 
 0.006     2017-03-15 08:03:37+09:00 Asia/Seoul
     - 허리둘레, 가슴둘레, 윗배둘레를 검색 조건에 포함
