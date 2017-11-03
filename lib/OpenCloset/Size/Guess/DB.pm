@@ -94,6 +94,7 @@ sub guess {
         hip      => [],
         knee     => [],
         leg      => [],
+        neck     => [],
         thigh    => [],
         topbelly => [],
         waist    => [],
@@ -107,6 +108,7 @@ sub guess {
         hip      => 0,
         knee     => 0,
         leg      => 0,
+        neck     => 0,
         thigh    => 0,
         topbelly => 0,
         waist    => 0,
@@ -122,6 +124,7 @@ sub guess {
             hip
             knee
             leg
+            neck
             thigh
             topbelly
             waist
@@ -146,6 +149,7 @@ sub guess {
         hip      => 0,
         knee     => 0,
         leg      => 0,
+        neck     => 0,
         thigh    => 0,
         topbelly => 0,
         waist    => 0,
@@ -157,6 +161,7 @@ sub guess {
     $ret{hip}      = Statistics::Basic::mean( $item{hip} )->query;
     $ret{knee}     = Statistics::Basic::mean( $item{knee} )->query;
     $ret{leg}      = Statistics::Basic::mean( $item{leg} )->query;
+    $ret{neck}     = Statistics::Basic::mean( $item{neck} )->query;
     $ret{thigh}    = Statistics::Basic::mean( $item{thigh} )->query;
     $ret{topbelly} = Statistics::Basic::mean( $item{topbelly} )->query;
     $ret{waist}    = Statistics::Basic::mean( $item{waist} )->query;
