@@ -1,6 +1,8 @@
 Revision history for {{ $dist->name }}
 
 {{ $NEXT }}
+
+0.008     2017-11-03 17:37:35+09:00 Asia/Seoul
     - Fixed neck average calculation
 
 0.007     2017-03-31 13:16:34+09:00 Asia/Seoul

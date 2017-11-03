@@ -6,7 +6,7 @@ use utf8;
 use Moo;
 use Types::Standard qw( InstanceOf Str );
 
-our $VERSION = '0.008';
+our $VERSION = '0.009';
 
 with 'OpenCloset::Size::Guess::Role::Base';
 
